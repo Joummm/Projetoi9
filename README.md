@@ -1,3 +1,26 @@
+.env.local
+AUTH0_SECRET='sua_auth0_pass'
+AUTH0_BASE_URL='http://localhost:3000'
+AUTH0_ISSUER_BASE_URL='url_base'
+AUTH0_CLIENT_ID='cliente_id'
+AUTH0_CLIENT_SECRET='clinte_secret'
+
+
+DATABASE_URL="sua_bd"
+
+# JWT_SECRET="wVNLjj58LSWdn/HqETY3L6uvr4i9buqgicJXWyI8T80="
+# NEXTAUTH_SECRET="wVNLjj58LSWdn/HqETY3L6uvr4i9buqgicJXWyI8T80="
+
+
+# ADMIN_USERNAME="admin"
+# ADMIN_PASSWORD="admin"
+
+RESEND_API_KEY="sua_resend_api"
+EMAIL_FROM_NAME="i9"
+EMAIL_FROM_EMAIL="delivered@resend.dev"
+
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
