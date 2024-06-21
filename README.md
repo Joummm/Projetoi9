@@ -8,13 +8,6 @@ AUTH0_CLIENT_SECRET='clinte_secret'
 
 DATABASE_URL="sua_bd"
 
-# JWT_SECRET="wVNLjj58LSWdn/HqETY3L6uvr4i9buqgicJXWyI8T80="
-# NEXTAUTH_SECRET="wVNLjj58LSWdn/HqETY3L6uvr4i9buqgicJXWyI8T80="
-
-
-# ADMIN_USERNAME="admin"
-# ADMIN_PASSWORD="admin"
-
 RESEND_API_KEY="sua_resend_api"
 EMAIL_FROM_NAME="i9"
 EMAIL_FROM_EMAIL="delivered@resend.dev"
