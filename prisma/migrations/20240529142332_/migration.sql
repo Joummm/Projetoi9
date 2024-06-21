@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Sensor" ALTER COLUMN "valorMaximo" DROP DEFAULT,
+ALTER COLUMN "valorMinimo" DROP DEFAULT;

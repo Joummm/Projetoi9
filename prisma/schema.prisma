@@ -1,0 +1,163 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Administrador {
+  id            String        @id @default(uuid())
+  nome          String
+  telefone      Int
+  email         String
+  endereco      String
+
+  revendedores  Revendedor[]
+}
+
+model Revendedor {
+  id            String        @id @default(uuid())
+  nome          String
+  telefone      Int
+  email         String
+  endereco      String
+
+  admin         Administrador @relation(fields: [adminId], references: [id])
+  adminId       String
+
+  clientes      Cliente[]
+}
+
+model Cliente {
+  id            String        @id @default(uuid())
+  nome          String
+  telefone      Int
+  email         String
+  endereco      String
+
+  revendedor    Revendedor    @relation(fields: [revendedorId], references: [id])
+  revendedorId  String
+
+  instalacoes   Instalacao[]
+  notificacoes  Notificacao[]
+}
+
+model Instalacao {
+  id            String        @id @default(uuid())
+  nome          String
+  telefone      Int
+  email         String
+  endereco      String
+
+  cliente       Cliente       @relation(fields: [clienteId], references: [id])
+  clienteId     String
+
+  agrupadores   Agrupador[]
+  sensores      Sensor[]
+}
+
+model Agrupador {
+  id            String        @id @default(uuid())
+  nome          String
+  descricao     String
+
+  instalacao    Instalacao    @relation(fields: [instalacaoId], references: [id])
+  instalacaoId  String
+
+  sensores      Sensor[]
+}
+
+model Alerta {
+  id                String                @id @default(uuid())
+  nome              String
+  dataInicio        DateTime              @default(now())
+  dataFim           DateTime?
+  horarioInicio     DateTime              @default(now())
+  horarioFim        DateTime?
+  estadoNotificacao Boolean               @default(false)
+  valorRegistado    Float                 
+
+  tipoAlerta        TipoAlerta            @relation(fields: [tipoAlertaId], references: [id])
+  tipoAlertaId      String
+
+  sensor            Sensor                @relation(fields: [sensorId], references: [id])
+  sensorId          String                @unique
+
+  notificacoes      Notificacao?
+}
+
+model Notificacao {
+  id            String        @id @default(uuid())
+  info          String
+  tipo          String
+
+  cliente       Cliente       @relation(fields: [clienteId], references: [id])
+  clienteId     String
+
+  sensor        Sensor        @relation(fields: [sensorId], references: [id])
+  sensorId      String
+
+  alerta        Alerta        @relation(fields: [alertaId], references: [id])
+  alertaId      String        @unique
+}
+
+model HistoricoSensor {
+  id             String       @id @default(uuid())
+  data           DateTime     @default(now())
+  hora           DateTime     @default(now())
+  valorRegistado Int
+
+  sensor         Sensor       @relation(fields: [sensorId], references: [id])
+  sensorId       String       @unique
+}
+
+model Sensor {
+  id                    String                   @id @default(uuid())
+  nome                  String
+  endereco              String
+  descricao             String
+  valorMinimo           Float                    
+  valorMaximo           Float                    
+
+  tipoAlerta            TipoAlerta               @relation(fields: [tipoAlertaId], references: [id])
+  tipoAlertaId          String
+
+  agrupador             Agrupador                @relation(fields: [agrupadorId], references: [id])
+  agrupadorId           String
+
+  instalacao            Instalacao               @relation(fields: [instalacaoId], references: [id])
+  instalacaoId          String
+
+  alertas               Alerta?
+
+  notificacoes          Notificacao[]
+
+  configuracaoNotificacao ConfiguracaoNotificacao?
+
+  historicoSensores     HistoricoSensor?
+}
+
+model TipoAlerta {
+  id             String        @id @default(uuid())
+  nomeAlerta     String
+  descricao      String     
+
+  sensores       Sensor[]
+  alertas        Alerta[]
+}
+
+model ConfiguracaoNotificacao {
+  id             String        @id @default(uuid())
+  nome           String
+
+  sensor         Sensor        @relation(fields: [sensorId], references: [id])
+  sensorId       String        @unique
+}
