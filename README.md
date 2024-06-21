@@ -1,8 +1,12 @@
 .env.local
 AUTH0_SECRET='sua_auth0_pass'
+
 AUTH0_BASE_URL='http://localhost:3000'
+
 AUTH0_ISSUER_BASE_URL='url_base'
+
 AUTH0_CLIENT_ID='cliente_id'
+
 AUTH0_CLIENT_SECRET='clinte_secret'
 
 
